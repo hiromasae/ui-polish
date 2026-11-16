@@ -17,11 +17,14 @@ layout, typography, or front-end components.
 ```
 ui-polish/
 ├── CLAUDE.md
+├── .claude/skills/research/
+│   └── SKILL.md              # /research: run the loop, then review-kit
 ├── .claude-plugin/
 │   └── marketplace.json      # points at ./plugins/ui-polish
 ├── research/                 # repo tooling; NOT shipped with the plugin
 │   ├── PROTOCOL.md           # operating contract for the research loop
 │   ├── SOURCES.md            # the only sources the loop may read
+│   ├── REVIEW.md             # rules review-kit checks proposals against
 │   └── REJECTED.md           # declined proposals; never re-proposed
 └── plugins/
     └── ui-polish/

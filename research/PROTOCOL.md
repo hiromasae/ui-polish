@@ -41,7 +41,9 @@ research target and no run may open it for editing.
 5. **Commit** surviving proposals to the standing branch `research-queue`,
    one commit per proposal, rationale and evidence in the commit body.
 6. **Threshold.** If the branch carries **8 or more** pending proposals,
-   open a PR. Otherwise stop and leave it accumulating.
+   open a PR. Otherwise stop and leave it accumulating. A run started with
+   `/research` puts the queue through the review-kit gate in
+   `research/REVIEW.md` before this step.
 
 ## Classifying a candidate
 
@@ -99,9 +101,18 @@ still holds, it becomes `*(added YYYY-MM, re-checked YYYY-MM)*`.
 depend on. An entry with no `re-checked` has not been verified since it was
 written, and the absence is informative. Do not backfill stamps.
 
+## Running it
+
+The loop runs on demand: type `/research` in this repo (the skill lives in
+`.claude/skills/research/`). After the research it checks the queue with
+review-kit's multi-model review against `research/REVIEW.md`, which needs
+review-kit installed locally. `/research review` runs only that check.
+
 ## Routine setup
 
-The loop runs as a scheduled cloud routine. Its prompt stays deliberately
+Optional, and not currently registered. A cloud routine has no review-kit,
+so a scheduled run skips the review gate. The loop can also run as a
+scheduled cloud routine. Its prompt stays deliberately
 short so that changing how the loop behaves means editing this file, not
 re-registering the routine:
 
