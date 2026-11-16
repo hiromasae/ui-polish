@@ -5,7 +5,7 @@ Operating contract for the scheduled agent that maintains `edge.md` and
 write to `main`.
 
 This directory is repo tooling and is **not** part of the shipped plugin.
-Nothing under `research/` may be moved into `plugins/migaki/`.
+Nothing under `research/` may be moved into `plugins/ui-polish/`.
 
 ## Scope
 
@@ -22,8 +22,15 @@ research target and no run may open it for editing.
 
 1. **Reconcile.** Read `research/REJECTED.md`. Then check for research PRs
    closed since the last run: anything proposed but absent from `main` was
-   rejected — append it to `REJECTED.md` with the date and move on. Never
-   re-propose a logged rejection.
+   rejected — append it to `REJECTED.md` with the date. Never re-propose a
+   logged rejection.
+
+   When a research PR has closed, merged or not, start the queue over before
+   anything else: delete `research-queue`, recreate it from `main`, and make
+   that `REJECTED.md` append its first commit. Everything the old branch
+   carried is now on `main` or in the ledger, and its stale commits would
+   conflict with the next run. Deleting and recreating is not a force-push.
+   The ledger commit does not count toward the threshold.
 2. **Re-check.** Take the six entries in `edge.md` with the oldest stamps.
    For each, confirm against Tier 1–2 sources that it still holds. Stamp the
    survivors; propose retirement for the rest.
@@ -98,7 +105,7 @@ The loop runs as a scheduled cloud routine. Its prompt stays deliberately
 short so that changing how the loop behaves means editing this file, not
 re-registering the routine:
 
-> Run the migaki research loop. Read `research/PROTOCOL.md` and follow it
+> Run the ui-polish research loop. Read `research/PROTOCOL.md` and follow it
 > exactly. Draw only on sources listed in `research/SOURCES.md`. Never edit
 > `core.md` and never commit to `main`.
 
